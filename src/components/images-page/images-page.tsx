@@ -15,15 +15,15 @@ export class ImagesPage {
   selectedImage: HTMLImageElement;
 
   componentDidLoad() {
-    /*idbKeyval.get('images').then((value) => {
+    idbKeyval.get('images').then((value) => {
       console.log(value);
 
       this.images = value;
-    })*/
+    })
 
-    (window as any).db.collection('images').get().then((querySnapshot) => {
+    /*(window as any).db.collection('images').get().then((querySnapshot) => {
       this.images = querySnapshot;
-    });
+    });*/
   }
 
   removeImage() {
@@ -88,59 +88,61 @@ export class ImagesPage {
   }
 
   render() {
-    /*const images = this.images.map((image) => {
-      console.log(image);
-      const imageSrc = image;
+    if (this.images) {
+      const images = this.images.map((image) => {
+        console.log(image);
+        const imageSrc = URL.createObjectURL(image);
+
+        return (
+          <img onClick={(e) => this.imageClick(e)} src={imageSrc} id={image.size}></img>
+        )
+      })
+
+      /*const images = this.images.forEach((doc) => {
+        const data = JSON.parse(JSON.stringify(doc.data()));
+        const imageSrc = data.image;
+  
+        return (
+          <img onClick={(e) => this.imageClick(e)} src={imageSrc} id={data.id}></img>
+        )
+      });*/
 
       return (
-        <img onClick={(e) => this.imageClick(e)} src={imageSrc} id={image.size}></img>
-      )
-    })*/
+        <ion-page class='show-page'>
+          <ion-header>
+            <ion-toolbar color='dark'>
+              <ion-title>
+                Pictures
+                </ion-title>
+            </ion-toolbar>
+          </ion-header>
 
-    const images = this.images.forEach((doc) => {
-      const data = JSON.parse(JSON.stringify(doc.data()));
-      const imageSrc = data.image;
+          <ion-content>
+            <div class='container'>
+              {images}
+            </div>
+          </ion-content>
 
-      return (
-        <img onClick={(e) => this.imageClick(e)} src={imageSrc} id={data.id}></img>
-      )
-    });
+          <ion-footer class='animatedFooter'>
+            <ion-toolbar color='primary'>
+              <ion-buttons slot='start'>
+                <ion-button clear color='danger' onClick={() => this.removeImage()}>
+                  Delete
+                  </ion-button>
+              </ion-buttons>
 
-    return (
-      <ion-page class='show-page'>
-        <ion-header>
-          <ion-toolbar color='dark'>
-            <ion-title>
-              Pictures
-              </ion-title>
-          </ion-toolbar>
-        </ion-header>
-
-        <ion-content>
-          <div class='container'>
-            {images}
-          </div>
-        </ion-content>
-
-        <ion-footer class='animatedFooter'>
-          <ion-toolbar color='primary'>
-            <ion-buttons slot='start'>
-              <ion-button clear color='danger' onClick={() => this.removeImage()}>
-                Delete
-                </ion-button>
-            </ion-buttons>
-
-            <ion-buttons slot='end'>
-              <ion-button clear onClick={() => this.save()}>
-                Save to Gallery
-                </ion-button>
-              <ion-button onClick={() => this.done()} clear>
-                Done
-                </ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-footer>
-      </ion-page>
-    );
+              <ion-buttons slot='end'>
+                <ion-button clear onClick={() => this.save()}>
+                  Save to Gallery
+                  </ion-button>
+                <ion-button onClick={() => this.done()} clear>
+                  Done
+                  </ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-footer>
+        </ion-page>
+      );
+    }
   }
 }

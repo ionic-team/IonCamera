@@ -1,6 +1,7 @@
 import { Component, Element, Prop } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 
+declare var idbKeyval: any;
 
 @Component({
   tag: 'main-page',
@@ -57,7 +58,7 @@ export class MainPage {
   }
 
   save(image: Blob) {
-    /*idbKeyval.get('images').then((value) => {
+    idbKeyval.get('images').then((value) => {
       console.log(value, image);
       if (value === undefined) {
         idbKeyval.set('images', [image]);
@@ -66,10 +67,10 @@ export class MainPage {
         value.push(image);
         idbKeyval.set('images', value);
       }
-    })*/
-    (window as any).db.collection('images').add({
+    })
+    /*(window as any).db.collection('images').add({
       image: URL.createObjectURL(image)
-    });
+    });*/
   }
 
   render() {
