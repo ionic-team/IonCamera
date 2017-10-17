@@ -1,0 +1,17 @@
+<svg width="128" height="128" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <circle r="64" id="circle" fill="#4B5F83" cy="64" cx="64"/>
+  <path id="base" fill="#22313F" d="m95,85l-62,0c-2.2,0 -4,-1.8 -4,-4l0,-34c0,-2.2 1.8,-4 4,-4l62,0c2.2,0 4,1.8 4,4l0,34c0,2.2 -1.8,4 -4,4z"/>
+  <circle stroke="null" r="16.792313" id="circle_4_" fill="#E6E6E6" cy="65.094359" cx="64.218872"/>
+  <circle stroke="null" r="15" id="circle_2_" fill="#22A7F0" cy="64.984922" cx="64.218871"/>
+  <circle r="7.5" id="circle_1_" fill="#22313F" cy="64.875486" cx="63.999999"/>
+  <circle r="2" id="red_light" fill="#CF000F" cy="49.3" cx="92.7"/>
+  <polygon points="89,41 89,39 87,39 87,41 85,41 85,43 91,43 91,41  " id="button" fill="#E6E6E6"/>
+ </g>
+</svg>

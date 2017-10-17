@@ -1,0 +1,38 @@
+images-page {
+  .container {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+
+  .skeleton {
+    background-repeat: no-repeat;
+    background-image: linear-gradient(#e4e4e4 100%, transparent 0);
+    height: 10em;
+    margin: 0.5em;
+  }
+
+  img {
+    transition: transform 0.5s;
+  }
+
+  img.selected {
+    transform: scale(0.9, 0.9);
+  }
+
+  .animatedFooter {
+    transform: translateY(100%);
+    transition: transform 0.5s;
+
+    button:not(color) {
+      color: white;
+    }
+  }
+
+  .animatedFooter.up {
+    transform: translateY(0);
+  }
+
+  ion-scroll {
+    margin-bottom: 0 !important;
+  }
+}
