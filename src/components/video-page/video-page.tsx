@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State} from '@stencil/core';
+import { Component, Element, Prop, State } from '@stencil/core';
 import { ToastController, AlertController } from '@ionic/core';
 
 
@@ -12,6 +12,7 @@ export class WebCamera {
 
   @Prop({ connect: 'ion-toast-controller' }) toastCtrl: ToastController;
   @Prop({ connect: 'ion-alert-controller' }) alertCtrl: AlertController;
+  @Prop({ context: 'isServer' }) private isServer: boolean;
 
   @State() recording: boolean;
 
@@ -20,19 +21,21 @@ export class WebCamera {
   chunks: any[] = [];
 
   componentDidLoad() {
-    navigator.mediaDevices.getUserMedia(
-      {
-        video: true,
-        audio: true
-      }
-    ).then((stream) => {
-      this.stream = stream;
-      this.mediaRecorder = new (window as any).MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
+    if (!this.isServer) {
+      navigator.mediaDevices.getUserMedia(
+        {
+          video: true,
+          audio: true
+        }
+      ).then((stream) => {
+        this.stream = stream;
+        this.mediaRecorder = new (window as any).MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
 
-      (this.el.querySelector('#firstVideo') as HTMLVideoElement).srcObject = stream;
-    }).catch((err) => {
-      console.error(err);
-    })
+        (this.el.querySelector('#firstVideo') as HTMLVideoElement).srcObject = stream;
+      }).catch((err) => {
+        console.error(err);
+      })
+    }
   }
 
   record() {
@@ -62,7 +65,7 @@ export class WebCamera {
                 handler: () => {
                   this.handleChunks()
                 }
-              }, 
+              },
               {
                 text: 'Cancel',
                 role: 'cancel',
@@ -104,12 +107,12 @@ export class WebCamera {
   }
 
   render() {
-    if (this.recording === undefined || this.recording === false ) {
+    if (this.recording === undefined || this.recording === false) {
       return (
         <ion-app>
-  
+
           <video id='firstVideo' autoplay></video>
-  
+
           <ion-footer>
             <ion-toolbar color='dark'>
               <ion-button clear onClick={() => this.record()}>
@@ -123,12 +126,12 @@ export class WebCamera {
     } else {
       return (
         <ion-app>
-  
+
           <video id='firstVideo' autoplay></video>
-  
+
           <ion-footer>
             <ion-toolbar color='dark'>
-  
+
               <ion-button clear onClick={() => this.stop()}>
                 Stop
               </ion-button>

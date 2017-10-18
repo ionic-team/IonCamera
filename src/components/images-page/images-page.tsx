@@ -78,6 +78,7 @@ export class ImagesPage {
 
   render() {
     if (this.images) {
+      console.log(this.images);
       const images = this.images.map((image) => {
         console.log(image);
         const imageSrc = URL.createObjectURL(image);

@@ -20,6 +20,15 @@
             "value": "no-cache"
           }
         ]
+      },
+      {
+        "source": "/",
+        "headers": [
+          {
+            "key": "Link",
+            "value": "</build/app/app.xqpevtbp.js>;rel=preload;as=script,</build/app/v7d20mpx.js>;rel=preload;as=script,</build/app/rxxjezd9.css>;rel=preload;as=style,</build/app/h3wx8ps6.js>;rel=preload;as=script,</build/app/oivqvquw.js>;rel=preload;as=script,</build/app/bxnpxlbz.css>;rel=preload;as=style,</build/app/kzngcu9x.js>;rel=preload;as=script,</build/app/txm3wxnu.css>;rel=preload;as=style"
+          }
+        ]
       }
     ]
   }

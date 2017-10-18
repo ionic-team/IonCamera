@@ -24,19 +24,15 @@ export class MainPage {
       if (this.stream && this.stream.getTracks()[0]) {
         this.stream.getTracks()[0].stop();
 
-        (window as any).requestIdleCallback(() => {
-          this.doCamera({
-            video: { facingMode: "environment" },
-            audio: false,
-          });
-        })
+        this.doCamera({
+          video: { facingMode: "environment" },
+          audio: false,
+        });
       } else {
-        (window as any).requestIdleCallback(() => {
-          this.doCamera({
-            video: { facingMode: "environment" },
-            audio: false,
-          });
-        })
+        this.doCamera({
+          video: { facingMode: "environment" },
+          audio: false,
+        });
       }
     }
   }
@@ -50,7 +46,11 @@ export class MainPage {
       constraints
     ).then((stream) => {
       this.stream = stream;
-      this.imageCapture = new (window as any).ImageCapture(stream.getVideoTracks()[0]);
+      if ('ImageCapture' in window) {
+        this.imageCapture = new (window as any).ImageCapture(stream.getVideoTracks()[0]);
+      } else {
+        this.imageCapture = {};
+      }
 
       this.el.querySelector('video').srcObject = stream;
     }).catch((err) => {
@@ -59,10 +59,27 @@ export class MainPage {
   }
 
   takePic() {
-    this.imageCapture.takePhoto().then((blob) => {
-      navigator.vibrate(300);
-      this.save(blob);
-    })
+    if ('ImageCapture' in window) {
+      this.imageCapture.takePhoto().then((blob) => {
+        navigator.vibrate(300);
+        this.save(blob);
+      })
+    } else {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.name = 'image';
+      input.accept = 'image/*';
+      input.setAttribute('capture', '');
+
+      input.click();
+
+      input.addEventListener('change', (ev: any) => {
+        console.log(ev);
+        // const url = window.URL.createObjectURL(ev.target.files[0]);
+
+        this.save(ev.target.files[0]);
+      })
+    }
   }
 
   switchCamera() {
@@ -80,7 +97,8 @@ export class MainPage {
     }
   }
 
-  save(image: Blob) {
+  save(image: any) {
+    console.log(image);
     idbKeyval.get('images').then((value) => {
       console.log(value, image);
       if (value === undefined) {
@@ -139,19 +157,19 @@ export class MainPage {
       return (
         <div>
           <video autoplay></video>
-  
+
           <ion-footer>
-          <div class='labelsCard'>
-            <ion-button clear color='primary' onClick={() => this.close()}>
-              Close
+            <div class='labelsCard'>
+              <ion-button clear color='primary' onClick={() => this.close()}>
+                Close
             </ion-button>
 
-            <span class='what-i-see'>What I see</span>
+              <span class='what-i-see'>What I see</span>
 
-            <ul>
-              {labels}
-            </ul>
-          </div>
+              <ul>
+                {labels}
+              </ul>
+            </div>
             <ion-toolbar color='dark'>
               <ion-buttons slot='start'>
                 <stencil-route-link url='/images'>
@@ -159,23 +177,23 @@ export class MainPage {
                     <ion-icon name='image'></ion-icon>
                   </ion-button>
                 </stencil-route-link>
-                
+
                 <stencil-route-link url='/video'>
                   <ion-button clear>
                     <ion-icon name='videocam'></ion-icon>
                   </ion-button>
                 </stencil-route-link>
               </ion-buttons>
-  
+
               <ion-buttons slot='end'>
                 <ion-button onClick={() => this.google()} clear>
                   <ion-icon name='search'></ion-icon>
                 </ion-button>
-  
+
                 <ion-button onClick={() => this.switchCamera()} clear>
                   <ion-icon name='reverse-camera'></ion-icon>
                 </ion-button>
-  
+
                 <ion-button clear onClick={() => this.takePic()}>
                   <ion-icon name='camera'></ion-icon>
                 </ion-button>
@@ -187,9 +205,9 @@ export class MainPage {
     } else {
       return (
         <div>
-  
+
           <video autoplay></video>
-  
+
           <ion-footer>
             <ion-toolbar color='dark'>
               <ion-buttons slot='start'>
@@ -205,16 +223,16 @@ export class MainPage {
                   </ion-button>
                 </stencil-route-link>
               </ion-buttons>
-  
+
               <ion-buttons slot='end'>
                 <ion-button onClick={() => this.google()} clear>
                   <ion-icon name='search'></ion-icon>
                 </ion-button>
-  
+
                 <ion-button onClick={() => this.switchCamera()} clear>
                   <ion-icon name='reverse-camera'></ion-icon>
                 </ion-button>
-  
+
                 <ion-button clear onClick={() => this.takePic()}>
                   <ion-icon name='camera'></ion-icon>
                 </ion-button>
