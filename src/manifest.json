@@ -1,13 +1,25 @@
 {
-  "name": "Stencil Starter",
-  "short_name": "Stencil",
+  "name": "IonicCamera",
+  "short_name": "IonicCamera",
   "start_url": "/",
   "display": "standalone",
-  "icons": [{
-    "src": "assets/icon/icon.png",
+  "icons": [
+    {
+    "src": "assets/icon/512.png",
     "sizes": "512x512",
     "type": "image/png"
-  }],
+    },
+    {
+      "src": "assets/icon/256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon/128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ],
   "background_color": "#16161d",
   "theme_color": "#16161d"
 }

@@ -1,13 +1,20 @@
 exports.config = {
   bundles: [
-    { components: ['main-page']},
-    { components: ['web-camera', 'auth-page'] },
+    { components: ['web-camera', 'main-page'] },
     { components: ['images-page'] }
   ],
   collections: [
     { name: '@stencil/router' },
     { name: '@ionic/core' }
-  ]
+  ],
+  serviceWorker: {
+    globPatterns: [
+      '**/*.{js,css,json,html,ico,png,jpeg}'
+    ],
+    globIgnores: [
+      'build/app/svg/*.js'
+    ]
+  }
 };
 
 exports.devServer = {

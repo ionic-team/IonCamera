@@ -1,4 +1,4 @@
-import { Component, Element, State } from '@stencil/core';
+import { Component, Element, State, Prop } from '@stencil/core';
 
 declare var idbKeyval: any;
 
@@ -12,36 +12,35 @@ export class ImagesPage {
 
   @State() images: any[] = [];
 
+  @Prop({ context: 'isServer' }) private isServer: boolean;
+
   selectedImage: HTMLImageElement;
 
   componentDidLoad() {
-    idbKeyval.get('images').then((value) => {
-      console.log(value);
+    if (!this.isServer) {
+      idbKeyval.get('images').then((value) => {
+        console.log(value);
 
-      this.images = value;
-    })
-
-    /*(window as any).db.collection('images').get().then((querySnapshot) => {
-      this.images = querySnapshot;
-    });*/
+        this.images = value;
+      })
+    }
   }
 
   removeImage() {
-    this.delete().then(() => {
-      (window as any).requestIdleCallback(() => {
-        const newArray = this.images.filter((image) => {
-          console.log(image.size, parseInt(this.selectedImage.id));
-          return image.size !== parseInt(this.selectedImage.id)
-        });
-
-        idbKeyval.set('images', newArray);
-
-        setTimeout(() => {
-          this.images = newArray;
-        }, 1000);
-
-      })
+    const newArray = this.images.filter((image) => {
+      console.log(image.size, parseInt(this.selectedImage.id));
+      return image.size !== parseInt(this.selectedImage.id)
     });
+
+    console.log(newArray);
+    this.images = newArray;
+
+    this.selectedImage.classList.remove('selected');
+    this.el.querySelector('.animatedFooter').classList.remove('up');
+    (this.el.querySelector('ion-content') as HTMLElement).style.pointerEvents = 'auto';
+
+    idbKeyval.set('images', newArray);
+
   }
 
   imageClick(e) {
@@ -55,16 +54,6 @@ export class ImagesPage {
     this.selectedImage.classList.remove('selected');
     this.el.querySelector('.animatedFooter').classList.remove('up');
     (this.el.querySelector('ion-content') as HTMLElement).style.pointerEvents = 'auto';
-  }
-
-  delete(): Promise<any> {
-    return new Promise((resolve) => {
-      this.selectedImage.parentNode.removeChild(this.selectedImage);
-      this.el.querySelector('.animatedFooter').classList.remove('up');
-      (this.el.querySelector('ion-content') as HTMLElement).style.pointerEvents = 'auto';
-
-      resolve();
-    })
   }
 
   save() {
@@ -97,15 +86,6 @@ export class ImagesPage {
           <img onClick={(e) => this.imageClick(e)} src={imageSrc} id={image.size}></img>
         )
       })
-
-      /*const images = this.images.forEach((doc) => {
-        const data = JSON.parse(JSON.stringify(doc.data()));
-        const imageSrc = data.image;
-  
-        return (
-          <img onClick={(e) => this.imageClick(e)} src={imageSrc} id={data.id}></img>
-        )
-      });*/
 
       return (
         <ion-page class='show-page'>

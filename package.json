@@ -9,6 +9,7 @@
   "scripts": {
     "build": "stencil build --prerender",
     "dev": "sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
+    "firebaseDev": "sd concurrent \"stencil build --dev --watch\" ",
     "serve": "stencil-dev-server",
     "start": "npm run dev",
     "test": "jest --no-cache",
@@ -16,7 +17,7 @@
   },
   "dependencies": {
     "@ionic/core": "0.0.2-20",
-    "@stencil/core": "0.0.6-17",
+    "@stencil/core": "0.0.6-10",
     "@stencil/router": "latest",
     "idb-keyval": "^2.3.0"
   },

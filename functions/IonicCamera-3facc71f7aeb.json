@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ioniccamera-9d025",
+  "private_key_id": "3facc71f7aeb011160f8de94b2cf9ac1cdf40407",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC0U4zEPbvHb/2O\nKu+u0zTmH0mlqVrNkT6EQcZbK159qNjUlVG6XDBhuzwpWdDZ3M+V5NfBPV5VZG3A\nq/XoSofO+Fw2ITYchnU9VyXGcRF5oDSd25Chh9Agdk8K4ncssiRY9z9A1X0btpDD\nfXGCFP0UkwGLdxzbKnxyqheZ9WRzJe0utMwHYqSW3/HMmeO0rxCk1OJLm4lBmdPx\nygzA4H6/EyUMuLtODjErSupxbktmRqWykP4/EsZm5xfZxqSa3Y4m5x9KXZmyGhTI\ndHZadCuLeF3B4OXS3rYHTs/iFBPKQ+2+BvD4hnyccAgfwpurwclcsT7y7tNvDLzC\nZUCudAyLAgMBAAECggEACtADsx9R1iM/RzoIhdQWP5eFWVCZUura88qPM+zwIoVw\nUvbidVPidsm8/BcYRdKkA9nlR1SrBmBvkEuqAr63+/oPwBMnungkKYRt4xiT3VYf\nhuOhKCkLmsFdUKAZre1p7oe3cZIbiVYzbKAQoVB+3a/0OheZ/Fjvfgn4QPwM2jaZ\n0dMhdiFnZyU3FE7SJIq9tSJ1TjDCvqbsQp5APslfV2NA1f7yEitZflgbriojwj8q\nPQEBjYCTPUwUEUaKFlYaE8ThtsrbTzx+JheZyyihBikQ+m6hhj5rWPlt3pZ8AkSD\nRqbVEdCfrSVZMnD86qoLqNNpEHe3P4rD+cBJYeRy0QKBgQDkfvvmJ6I7QWkK6AOI\njSMwU5DcLslSRQZ0F3wxfh6shvLlYLZQRgKQlcsdEW4ivEvdyGFORxt9YchN2qI3\neHRIpnCmDmG+JNAN68U1l9/oEN0yv1HyAJM6uGdOOn1QvpToNkXZOaWDREFAX7KU\nIxgzn8ZZXu9dFKcGKEb5H2DSQwKBgQDKCDyJznQR1FPcWUT1w7Uphv/7u+FgTi5i\nCE6U/PIxt2c4k5gYqIlWKhQdfHWOVLWLCUQ3IlLrFqrI3bn/luwkvfZ5hCC5K7bQ\n/ffw6Erl21zsX2qJ992hLO9E2eE/29rJITVPCJ8qskFu1yI/MNO8EtcDStqWNtO1\n1H5GBvQsGQKBgQCPciTDxYf0eUjvnt5xAGHh+eRMRlb+/fRiN0gxbgLlvsaIN+Hc\nnUcI6/Eaa5Hf3qQmNKDZ2owod5WfQq1p84XVAiBgL1EvZL70rlodHh5j+wpSzIcu\nTSwgxhmco91+LlcfPMs25xjAQr5QIoPiufF8n0aPXqkYn1mH5QtBZHCNLwKBgQCX\nYH6DvwZnCZHgS58JCp/mQrnxE8B2GX5Vg+XlanXKXKJh2O0gpL9qqVKzGTs37y6r\nw8CyEuzQKwbCRKiF4r6DdTaFrEOcmy17AKBTiKn9+lRw47l/MRKGHpYVH6/P2lrf\nUxuPYWVpZ3DxrQ6DDIHJrNAgLmkEHoaY+mO28qTnmQKBgAjWiSFxCzLudOu86ebU\n9734sKh4ahpHhistO4nR0KdsRqg782fjS13qiR3WWtHZazv6RdO9jM7LlRJW+5Ii\n4BZo/6BGdyreDuBVy6a9dUw/kP4mXtSKpNfX/dzF9pnzsADt0keAVjI9IT+avy4s\njtw8AqXEPHKwbLm5FpxOD58y\n-----END PRIVATE KEY-----\n",
+  "client_email": "ioniccamera-9d025@appspot.gserviceaccount.com",
+  "client_id": "100848944158663793888",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ioniccamera-9d025%40appspot.gserviceaccount.com"
+}

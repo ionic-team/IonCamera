@@ -1,4 +1,4 @@
-import { Component, Element, Prop } from '@stencil/core';
+import { Component, Element, Prop, State } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 
 declare var idbKeyval: any;
@@ -12,15 +12,37 @@ export class MainPage {
   @Element() el: HTMLElement;
 
   @Prop() history: RouterHistory;
+  @Prop({ context: 'isServer' }) private isServer: boolean;
+  @State() imageLabels: any[];
 
   imageCapture: any;
   stream: MediaStream;
+  flash: Boolean = false;
 
   componentDidLoad() {
-    this.doCamera({
-      video: { facingMode: "environment" },
-      audio: false,
-    })
+    if (!this.isServer) {
+      if (this.stream && this.stream.getTracks()[0]) {
+        this.stream.getTracks()[0].stop();
+
+        (window as any).requestIdleCallback(() => {
+          this.doCamera({
+            video: { facingMode: "environment" },
+            audio: false,
+          });
+        })
+      } else {
+        (window as any).requestIdleCallback(() => {
+          this.doCamera({
+            video: { facingMode: "environment" },
+            audio: false,
+          });
+        })
+      }
+    }
+  }
+
+  componentWillUnload() {
+    this.stream.getTracks()[0].stop();
   }
 
   doCamera(constraints: any) {
@@ -38,6 +60,7 @@ export class MainPage {
 
   takePic() {
     this.imageCapture.takePhoto().then((blob) => {
+      navigator.vibrate(300);
       this.save(blob);
     })
   }
@@ -68,39 +91,128 @@ export class MainPage {
         idbKeyval.set('images', value);
       }
     })
-    /*(window as any).db.collection('images').add({
-      image: URL.createObjectURL(image)
-    });*/
+  }
+
+  google() {
+    this.imageCapture.takePhoto().then((blob) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+
+      reader.onloadend = () => {
+
+        fetch('/vision', {
+          method: 'POST',
+          body: JSON.stringify({ image: reader.result })
+        }).then((res) => {
+          return res.json()
+        }).then((data) => {
+          console.log(data);
+
+          this.imageLabels = data;
+
+          setTimeout(() => {
+            this.el.querySelector('.labelsCard').classList.add('up');
+          }, 500);
+        })
+
+      }
+    })
+  }
+
+  close() {
+
+    this.el.querySelector('.labelsCard').classList.remove('up');
+
+    setTimeout(() => {
+      this.imageLabels = null;
+    }, 300)
+
   }
 
   render() {
-    return (
-      <div>
+    if (this.imageLabels) {
+      const list = this.imageLabels.slice(0, 2);
+      const labels = list.map((label) => {
+        return (
+          <li>{label}</li>
+        )
+      });
 
-        <video autoplay></video>
+      return (
+        <div>
+          <video autoplay></video>
+  
+          <ion-footer>
+          <div class='labelsCard'>
+            <ion-button clear color='primary' onClick={() => this.close()}>
+              Close
+            </ion-button>
 
-        <ion-footer>
-          <ion-toolbar color='dark'>
-            <ion-buttons slot='start'>
-              <stencil-route-link url='/images'>
-                <ion-button clear>
-                  <ion-icon name='image'></ion-icon>
+            <span class='what-i-see'>What I see</span>
+
+            <ul>
+              {labels}
+            </ul>
+          </div>
+            <ion-toolbar color='dark'>
+              <ion-buttons slot='start'>
+                <stencil-route-link url='/images'>
+                  <ion-button clear>
+                    <ion-icon name='image'></ion-icon>
+                  </ion-button>
+                </stencil-route-link>
+              </ion-buttons>
+  
+              <ion-buttons slot='end'>
+                <ion-button onClick={() => this.google()} clear>
+                  <ion-icon name='search'></ion-icon>
                 </ion-button>
-              </stencil-route-link>
-            </ion-buttons>
-
-            <ion-buttons slot='end'>
-              <ion-button onClick={() => this.switchCamera()} clear>
-                <ion-icon name='reverse-camera'></ion-icon>
-              </ion-button>
-
-              <ion-button clear onClick={() => this.takePic()}>
-                <ion-icon name='camera'></ion-icon>
-              </ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-footer>
-      </div>
-    );
+  
+                <ion-button onClick={() => this.switchCamera()} clear>
+                  <ion-icon name='reverse-camera'></ion-icon>
+                </ion-button>
+  
+                <ion-button clear onClick={() => this.takePic()}>
+                  <ion-icon name='camera'></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-footer>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+  
+          <video autoplay></video>
+  
+          <ion-footer>
+            <ion-toolbar color='dark'>
+              <ion-buttons slot='start'>
+                <stencil-route-link url='/images'>
+                  <ion-button clear>
+                    <ion-icon name='image'></ion-icon>
+                  </ion-button>
+                </stencil-route-link>
+              </ion-buttons>
+  
+              <ion-buttons slot='end'>
+                <ion-button onClick={() => this.google()} clear>
+                  <ion-icon name='search'></ion-icon>
+                </ion-button>
+  
+                <ion-button onClick={() => this.switchCamera()} clear>
+                  <ion-icon name='reverse-camera'></ion-icon>
+                </ion-button>
+  
+                <ion-button clear onClick={() => this.takePic()}>
+                  <ion-icon name='camera'></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-footer>
+        </div>
+      )
+    }
   }
 }

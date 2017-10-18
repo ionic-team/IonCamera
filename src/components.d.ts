@@ -8,36 +8,6 @@ import '@stencil/router';
 
 import '@ionic/core';
 
-import { WebCamera as AuthPage } from './components/auth-page/auth-page';
-
-interface HTMLAuthPageElement extends AuthPage, HTMLElement {
-}
-declare var HTMLAuthPageElement: {
-  prototype: HTMLAuthPageElement;
-  new (): HTMLAuthPageElement;
-};
-declare global {
-  interface HTMLElementTagNameMap {
-      "auth-page": HTMLAuthPageElement;
-  }
-  interface ElementTagNameMap {
-      "auth-page": HTMLAuthPageElement;
-  }
-  namespace JSX {
-      interface IntrinsicElements {
-          "auth-page": JSXElements.AuthPageAttributes;
-      }
-  }
-  namespace JSXElements {
-      export interface AuthPageAttributes extends HTMLAttributes {
-          mode?: string,
-          color?: string,
-        
-          history?: any
-      }
-  }
-}
-
 import { ImagesPage as ImagesPage } from './components/images-page/images-page';
 
 interface HTMLImagesPageElement extends ImagesPage, HTMLElement {
@@ -60,8 +30,6 @@ declare global {
   }
   namespace JSXElements {
       export interface ImagesPageAttributes extends HTMLAttributes {
-          mode?: string,
-          color?: string,
         
       }
   }
@@ -89,8 +57,6 @@ declare global {
   }
   namespace JSXElements {
       export interface MainPageAttributes extends HTMLAttributes {
-          mode?: string,
-          color?: string,
         
           history?: any
       }
@@ -119,8 +85,6 @@ declare global {
   }
   namespace JSXElements {
       export interface WebCameraAttributes extends HTMLAttributes {
-          mode?: string,
-          color?: string,
         
       }
   }
