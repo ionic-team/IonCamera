@@ -120,13 +120,11 @@ export class MainPage {
   }
 
   close() {
-
     this.el.querySelector('.labelsCard').classList.remove('up');
 
     setTimeout(() => {
       this.imageLabels = null;
-    }, 300)
-
+    }, 300);
   }
 
   render() {
@@ -161,6 +159,12 @@ export class MainPage {
                     <ion-icon name='image'></ion-icon>
                   </ion-button>
                 </stencil-route-link>
+                
+                <stencil-route-link url='/video'>
+                  <ion-button clear>
+                    <ion-icon name='videocam'></ion-icon>
+                  </ion-button>
+                </stencil-route-link>
               </ion-buttons>
   
               <ion-buttons slot='end'>
@@ -192,6 +196,12 @@ export class MainPage {
                 <stencil-route-link url='/images'>
                   <ion-button clear>
                     <ion-icon name='image'></ion-icon>
+                  </ion-button>
+                </stencil-route-link>
+
+                <stencil-route-link url='/video'>
+                  <ion-button clear>
+                    <ion-icon name='videocam'></ion-icon>
                   </ion-button>
                 </stencil-route-link>
               </ion-buttons>

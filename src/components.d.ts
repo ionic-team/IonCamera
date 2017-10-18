@@ -63,6 +63,35 @@ declare global {
   }
 }
 
+import { WebCamera as VideoPage } from './components/video-page/video-page';
+
+interface HTMLVideoPageElement extends VideoPage, HTMLElement {
+}
+declare var HTMLVideoPageElement: {
+  prototype: HTMLVideoPageElement;
+  new (): HTMLVideoPageElement;
+};
+declare global {
+  interface HTMLElementTagNameMap {
+      "video-page": HTMLVideoPageElement;
+  }
+  interface ElementTagNameMap {
+      "video-page": HTMLVideoPageElement;
+  }
+  namespace JSX {
+      interface IntrinsicElements {
+          "video-page": JSXElements.VideoPageAttributes;
+      }
+  }
+  namespace JSXElements {
+      export interface VideoPageAttributes extends HTMLAttributes {
+        
+          toastCtrl?: any,
+          alertCtrl?: any
+      }
+  }
+}
+
 import { WebCamera as WebCamera } from './components/web-camera/web-camera';
 
 interface HTMLWebCameraElement extends WebCamera, HTMLElement {

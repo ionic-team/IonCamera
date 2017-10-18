@@ -115,6 +115,7 @@ export class ImagesPage {
                 <ion-button clear onClick={() => this.save()}>
                   Save to Gallery
                   </ion-button>
+
                 <ion-button onClick={() => this.done()} clear>
                   Done
                   </ion-button>

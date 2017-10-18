@@ -16,6 +16,9 @@ export class WebCamera {
 
           <stencil-route url='/images' component='images-page' exact={true}>
           </stencil-route>
+
+          <stencil-route url='/video' component='video-page' exact={true}>
+          </stencil-route>
         </stencil-router>
       </ion-app>
     );

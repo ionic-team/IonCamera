@@ -1,0 +1,28 @@
+video-page {
+  ion-icon {
+    font-size: 3.5em;
+
+    svg {
+      fill: white;
+    }
+  }
+
+  .toolbar {
+    justify-content: center !important;
+  }
+
+  .toolbar-content-md {
+    flex: none !important;
+  }
+
+  video {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+  }
+}

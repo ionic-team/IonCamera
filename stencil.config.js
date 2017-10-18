@@ -1,7 +1,8 @@
 exports.config = {
   bundles: [
     { components: ['web-camera', 'main-page'] },
-    { components: ['images-page'] }
+    { components: ['images-page'] },
+    { components: ['video-page'] }
   ],
   collections: [
     { name: '@stencil/router' },
